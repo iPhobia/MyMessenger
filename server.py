@@ -11,6 +11,7 @@ conn.listen(2)
 def clientHandle(socc):
     while True:
         receivedData = socc.recv(1024).decode()
+        print("thread " + str(_thread.get_ident()))
         print(receivedData)
         if receivedData:
             for users in connectedUsers:
@@ -22,4 +23,3 @@ while True:
     socc, addr = conn.accept()
     connectedUsers.append(socc)
     _thread.start_new(clientHandle,(socc,))
-    print("thread "+str(_thread.get_ident()))
